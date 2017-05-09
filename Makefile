@@ -7,14 +7,12 @@ build: deps
 	go build
 
 release: clean deps
-	@for arch in $(ARCHS);\
-	do \
-		for os in $(OS);\
-		do \
-			echo "Building $$os-$$arch"; \
-			mkdir -p build/webhook-$$os-$$arch/; \
-			GOOS=$$os GOARCH=$$arch go build -o build/webhook-$$os-$$arch/webhook; \
-			tar cz -C build -f build/webhook-$$os-$$arch.tar.gz webhook-$$os-$$arch; \
+	@for arch in $(ARCHS); do \
+		for os in $(OS); do \
+			echo "Building for $$os-$$arch"; \
+			mkdir -p build/gooker-$$os-$$arch/; \
+			GOOS=$$os GOARCH=$$arch go build -o build/gooker-$$os-$$arch/gooker; \
+			tar cz -C build -f build/gooker-$$os-$$arch.tar.gz gooker-$$os-$$arch; \
 		done \
 	done
 
@@ -26,4 +24,4 @@ deps:
 
 clean:
 	rm -rf build
-	rm -f webhook
+	rm -f gooker
